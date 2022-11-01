@@ -10,6 +10,12 @@ const AnimalList = () => {
         {id: 6, species: 'dog', name: 'Dzeki', },
     ]);
 
+    const handleRemoweAnimal = (animalIndex) => {
+        setAnimals([
+            ...animals.slice(0, animalIndex), 
+            ...animals.slice(animalIndex + 1)])
+    }
+
   return (
     <div>
       <table>
@@ -21,11 +27,13 @@ const AnimalList = () => {
             </tr>
         </thead>
         <tbody>
-            {animals.map((animal) => (
+            {animals.map((animal, index) => (
                 <tr key={animal.id}>
                     <th>{animal.species}</th>
                     <th>{animal.name}</th>
                     <th>{animal.dateOfBirth ? animal.dateOfBirth.toDateString() : 'Nepoznat'}</th>
+                    <th><button onClick={() => handleRemoweAnimal(index)}>Remove Animal</button></th>
+
                 </tr>
             ))}
         </tbody>
