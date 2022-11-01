@@ -10,6 +10,10 @@ const AnimalList = () => {
         {id: 6, species: 'dog', name: 'Dzeki', },
     ]);
 
+    const [species, setSpecies] = useState('');
+    const [name, setName] = useState('');
+    const [dateOfBirth, setDateOfBirth] = useState(new Date());
+
     const handleRemoweAnimal = (animalIndex) => {
         setAnimals([
             ...animals.slice(0, animalIndex), 
@@ -19,13 +23,41 @@ const AnimalList = () => {
     const handleAnimalMoveToTop = (animalIndex) => {
         setAnimals([
             animals[animalIndex],
-            ...animals.splice(0, animalIndex),
-            ...animals.splice(animalIndex + 1)
+            ...animals.slice(0, animalIndex),
+            ...animals.slice(animalIndex + 1)
         ]);
+    }
+
+    const addAnimal = (e) => {
+        const id = Math.floor(Math.random() * 10000 +1)
+
+        e.preventDefault();
+        setAnimals([...animals, { id: id, species: species, name: name, dateOfBirth: new Date(dateOfBirth) }])
     }
 
   return (
     <div>
+        <form onSubmit={addAnimal}>
+            <label>Species</label>
+            <input 
+                type="text"  
+                value={species}
+                onChange={(e) => setSpecies(e.target.value)}
+            />
+            <label>Name</label>
+            <input 
+                type="text" 
+                value={name} 
+                onChange={(e) => setName(e.target.value)}
+            />
+            <label>Date of birth</label>
+            <input 
+                type="date" 
+                value={dateOfBirth}
+                onChange={(e) => setDateOfBirth(e.target.value)}
+            />
+            <button type='submit'>Add Animal</button>
+        </form>
       <table>
         <thead>
             <tr>
