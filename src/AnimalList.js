@@ -16,6 +16,14 @@ const AnimalList = () => {
             ...animals.slice(animalIndex + 1)])
     }
 
+    const handleAnimalMoveToTop = (animalIndex) => {
+        setAnimals([
+            animals[animalIndex],
+            ...animals.splice(0, animalIndex),
+            ...animals.splice(animalIndex + 1)
+        ]);
+    }
+
   return (
     <div>
       <table>
@@ -33,7 +41,7 @@ const AnimalList = () => {
                     <th>{animal.name}</th>
                     <th>{animal.dateOfBirth ? animal.dateOfBirth.toDateString() : 'Nepoznat'}</th>
                     <th><button onClick={() => handleRemoweAnimal(index)}>Remove Animal</button></th>
-
+                    <th><button onClick={() => handleAnimalMoveToTop(index)}>Mov To Top</button></th>
                 </tr>
             ))}
         </tbody>
