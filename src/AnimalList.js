@@ -38,6 +38,13 @@ const AnimalList = () => {
         setAnimals([...animals, { id: id, sector: sector, species: species, name: name, dateOfBirth: new Date(dateOfBirth) }])
     }
 
+    const checkAnimals = () => {
+        alert(
+            animals
+            .filter((animal) => animal.sector === sector)
+            .map((animal) => `${animal.name} \n` )
+        );
+    }
 
   return (
     <div>
@@ -90,6 +97,28 @@ const AnimalList = () => {
                     <th>{animal.dateOfBirth ? animal.dateOfBirth.toDateString() : 'Nepoznat'}</th>
                     <th><button onClick={() => handleRemoweAnimal(index)}>Remove Animal</button></th>
                     <th><button onClick={() => handleAnimalMoveToTop(index)}>Mov To Top</button></th>
+                </tr>
+            ))}
+        </tbody>
+    </table>
+      <table>
+        <thead>
+            <tr>
+                <th>Sectors:</th>
+            </tr>
+        </thead>
+        <tbody>
+            {sectorAnima.map((sector, index) => (
+                <tr key={index}>
+                    <td>{sector}</td>
+                    <td>
+                        <button
+                            type='submit'
+                            onClick={checkAnimals}
+                        >
+                            Check Animals
+                        </button>
+                    </td>
                 </tr>
             ))}
         </tbody>
