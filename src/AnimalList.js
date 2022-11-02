@@ -10,9 +10,12 @@ const AnimalList = () => {
         {id: 6, species: 'dog', name: 'Dzeki', },
     ]);
 
+    const sectorAnima = ['birds', 'snakes', 'mammals']
+
     const [species, setSpecies] = useState('');
     const [name, setName] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
+    const [sector, setSector] = useState('');
 
     const handleRemoweAnimal = (animalIndex) => {
         setAnimals([
@@ -32,12 +35,23 @@ const AnimalList = () => {
         const id = Math.floor(Math.random() * 10000 +1)
 
         e.preventDefault();
-        setAnimals([...animals, { id: id, species: species, name: name, dateOfBirth: new Date(dateOfBirth) }])
+        setAnimals([...animals, { id: id, sector: sector, species: species, name: name, dateOfBirth: new Date(dateOfBirth) }])
     }
+
 
   return (
     <div>
         <form onSubmit={addAnimal}>
+            <label>Animal species:</label>
+            <select 
+                onChange={e => setSector(e.target.value)}
+            >
+                {sectorAnima.map((sector) => 
+                    <option >
+                        {sector}
+                    </option>
+                )}
+            </select>
             <label>Species</label>
             <input 
                 type="text"  
@@ -61,6 +75,7 @@ const AnimalList = () => {
       <table>
         <thead>
             <tr>
+                <th>Sector</th>
                 <th>Species</th>
                 <th>Name</th>
                 <th>Date Of Birth</th>
@@ -69,6 +84,7 @@ const AnimalList = () => {
         <tbody>
             {animals.map((animal, index) => (
                 <tr key={animal.id}>
+                    <th>{animal.sector ? animal.sector: 'Unknown'}</th>
                     <th>{animal.species}</th>
                     <th>{animal.name}</th>
                     <th>{animal.dateOfBirth ? animal.dateOfBirth.toDateString() : 'Nepoznat'}</th>
@@ -77,7 +93,7 @@ const AnimalList = () => {
                 </tr>
             ))}
         </tbody>
-      </table>
+    </table>
     </div>
   )
 }
